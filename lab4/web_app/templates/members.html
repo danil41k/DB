@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Учасники
+{% endblock %}
+
+{% block content %}
+
+<h2>Список учасників</h2>
+
+<table>
+
+    <thead>
+
+    <tr>
+        <th>ID</th>
+        <th>Ім'я</th>
+        <th>Прізвище</th>
+        <th>Телефон</th>
+        <th>Email</th>
+        <th>Дія</th>
+    </tr>
+
+    </thead>
+
+    <tbody>
+
+    {% for member in members %}
+
+    <tr>
+
+        <td>{{ member[0] }}</td>
+        <td>{{ member[1] }}</td>
+        <td>{{ member[2] }}</td>
+        <td>{{ member[3] }}</td>
+        <td>{{ member[4] }}</td>
+
+        <td>
+
+            <a
+                class="delete-btn"
+                href="/members/delete/{{ member[0] }}"
+            >
+                Видалити
+            </a>
+
+        </td>
+
+    </tr>
+
+    {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}
