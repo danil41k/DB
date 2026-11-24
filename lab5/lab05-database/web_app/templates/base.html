@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Спортивний клуб{% endblock %}</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header>
+
+    <div class="container">
+
+        <h1>Спортивний клуб</h1>
+
+        <nav>
+            <a href="/">Головна</a>
+            <a href="/members">Учасники</a>
+            <a href="/members/add">Додати учасника</a>
+        </nav>
+
+    </div>
+
+</header>
+
+<div class="container">
+
+    {% with messages = get_flashed_messages() %}
+
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <div class="alert">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+
+    {% block content %}
+    {% endblock %}
+
+</div>
+
+<footer>
+
+    <p>
+        Лабораторна робота №4.
+        Система управління спортивним клубом.
+    </p>
+
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: sportsclub_db
+
+    # Lab 05: pg_stat_statements для моніторингу найповільніших запитів
+    command:
+      - postgres
+      - -c
+      - shared_preload_libraries=pg_stat_statements
+      - -c
+      - pg_stat_statements.track=all
+      - -c
+      - track_io_timing=on
+
+    environment:
+      POSTGRES_DB: sportsclub
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database:/docker-entrypoint-initdb.d
+      # Lab 05
+      - ./lab05:/lab05:ro        # SQL-скрипти лабораторної №5
+      - ./backups:/backups       # резервні копії (pg_dump)
+      - ./results:/results       # збережені результати EXPLAIN / моніторингу
+
+    restart: unless-stopped
+
+    networks:
+      - sportsclub_network
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: sportsclub_pgadmin
+
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+
+    ports:
+      - "5050:80"
+
+    depends_on:
+      - postgres
+
+    restart: unless-stopped
+
+    networks:
+      - sportsclub_network
+
+volumes:
+  postgres_data:
+
+networks:
+  sportsclub_network:
+    driver: bridge
