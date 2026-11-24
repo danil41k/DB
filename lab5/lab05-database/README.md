@@ -3,7 +3,7 @@
 **Студент:** Остаповець Данило Олександрович  
 **Предметна область:** Система управління спортивним клубом (БД `sportsclub` з лаби 4)  
 **Рівень:** 3  
-**Звіт:** [`docs/report.md`](docs/report.md) · **Список скріншотів:** [`docs/SCREENSHOTS.md`](docs/SCREENSHOTS.md)
+**Звіт:** [`docs/report.md`](docs/report.md) 
 
 ## Швидкий старт
 
@@ -13,7 +13,6 @@ bash scripts/run_lab05.sh             # Windows: .\scripts\run_lab05.ps1
 ```
 
 `run_lab05` послідовно: наповнює БД великим обсягом даних → знімає EXPLAIN **до** індексів (`results/explain_before.txt`) → створює індекси → знімає EXPLAIN **після** (`results/explain_after.txt`) → застосовує решту скриптів.
-Для скрінів зручніше запускати файли по одному (див. `docs/SCREENSHOTS.md`):
 
 ```bash
 docker compose exec -T postgres psql -U postgres -d sportsclub -f /lab05/01_explain_queries.sql
@@ -51,4 +50,3 @@ docker compose exec -T postgres psql -U postgres -d sportsclub -f /lab05/01_expl
 - `docker-compose.yml`: `pg_stat_statements`, томи `lab05`, `backups`, `results`.
 - Таблиця `members` отримала стовпці `visits_count`, `last_visit_date` (веб- та консольний застосунки не зачеплені — вони вибирають стовпці явно).
 - Тригери валідації тепер відхиляють некоректні email/телефон/дату народження і в застосунках лаби 4.
-- Паролі в скриптах (`report_viewer`, `club_*`) — навчальні, змініть на власні.
